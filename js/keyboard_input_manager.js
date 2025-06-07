@@ -12,6 +12,7 @@ function KeyboardInputManager() {
     this.eventTouchend      = "touchend";
   }
 
+  this.commands = [0, 1, 2, 3];
   this.listen();
 }
 
@@ -47,7 +48,8 @@ KeyboardInputManager.prototype.listen = function () {
     68: 1, // D
     83: 2, // S
     65: 3  // A
-  };
+  }; 
+
 
   // Respond to direction keys
   document.addEventListener("keydown", function (event) {
@@ -64,7 +66,8 @@ KeyboardInputManager.prototype.listen = function () {
 
     // R key restarts the game
     if (!modifiers && event.which === 82) {
-      self.restart.call(self, event);
+      // self.restart.call(self, event);
+      self.emit("restart");
     }
   });
 
@@ -73,7 +76,8 @@ KeyboardInputManager.prototype.listen = function () {
   this.bindButtonPress(".restart-button", this.restart);
   this.bindButtonPress(".keep-playing-button", this.keepPlaying);
 
-  // Respond to swipe events
+  // Respond to swipe events 
+  /*
   var touchStartClientX, touchStartClientY;
   var gameContainer = document.getElementsByClassName("game-container")[0];
 
@@ -93,11 +97,9 @@ KeyboardInputManager.prototype.listen = function () {
 
     event.preventDefault();
   });
-
   gameContainer.addEventListener(this.eventTouchmove, function (event) {
     event.preventDefault();
   });
-
   gameContainer.addEventListener(this.eventTouchend, function (event) {
     if ((!window.navigator.msPointerEnabled && event.touches.length > 0) ||
         event.targetTouches.length > 0) {
@@ -125,11 +127,13 @@ KeyboardInputManager.prototype.listen = function () {
       self.emit("move", absDx > absDy ? (dx > 0 ? 1 : 3) : (dy > 0 ? 2 : 0));
     }
   });
+  */
 };
 
 KeyboardInputManager.prototype.restart = function (event) {
   event.preventDefault();
-  this.emit("restart");
+  // this.emit("restart");
+  this.emit("move", 0);
 };
 
 KeyboardInputManager.prototype.keepPlaying = function (event) {
