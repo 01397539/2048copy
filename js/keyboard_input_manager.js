@@ -12,7 +12,6 @@ function KeyboardInputManager() {
     this.eventTouchend      = "touchend";
   }
 
-  this.commands = [0, 1, 2, 3];
   this.listen();
 }
 
@@ -34,7 +33,7 @@ KeyboardInputManager.prototype.emit = function (event, data) {
 
 KeyboardInputManager.prototype.listen = function () {
   var self = this;
-
+  
   var map = {
     38: 0, // Up
     39: 1, // Right
@@ -49,10 +48,13 @@ KeyboardInputManager.prototype.listen = function () {
     83: 2, // S
     65: 3  // A
   }; 
-
-
+  
+  
   // Respond to direction keys
   document.addEventListener("keydown", function (event) {
+    // move right if cell exists in top right corner
+    // if (self.grid.cellContent([0, 0])) self.emit("move", 1);
+
     var modifiers = event.altKey || event.ctrlKey || event.metaKey ||
                     event.shiftKey;
     var mapped    = map[event.which];
